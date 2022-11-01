@@ -45,7 +45,7 @@ public class LC_350_两个数组的交集II {
         }//对较短的数组进行哈希表的操作
         HashMap<Integer, Integer> map = new HashMap<>();
         int[] res = new int[nums1.length];
-        int index = 0;//创建res数组，用index下标记录插入的元素个数，最后用copyOfRange截取
+        int index = 0;//创建res数组，用index下标记录插入的元素位置，最后用copyOfRange截取
         for (int num :
                 nums1) {
             int count = map.getOrDefault(num, 0) + 1;

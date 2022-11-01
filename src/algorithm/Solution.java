@@ -8,6 +8,6 @@ public class Solution {
         char[] array = {'a','b','c'};
         String s = new String(array);
         String s1 = new String(array);
-        System.out.println(s + "-----" + s1);
+        System.out.println(Math.sqrt(4));
     }
 }
