@@ -1,6 +1,6 @@
 package algorithm.LeetCode;
 
-public class LC_S2 {
+public class LC_1143_最长公共子序列_LCS2 {
 
     public static void main(String[] args) {
         String str1 = "13456778";

@@ -3,6 +3,7 @@ package Java.JavaIO;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Main1 {
@@ -29,5 +30,17 @@ public class Main1 {
 
             Arrays.sort(s1,(o1, o2)->Integer.parseInt(o1)>Integer.parseInt(o2)?1:-1);
             System.out.println(Arrays.toString(s1));
+
+            /**
+             * 注：Arrays.sort方法与Collections.sort方法类似,，都可以通过比较器Comparator<?>自定义排序规则
+             *
+             * 比较器Comparator<?>中public int compare(Integer o1, Integer o2) 函数：
+             * 1.默认升序排序
+             * 2.重写时的比较规则
+             *      1）如果要按照升序排序，则01大于02返回（正数），相等返回0，o1 小于o2，返回（负数）
+             *      2）如果要按照降序排序，则01大于02返回（负数），相等返回0，o1 小于o2，返回（正数）
+             *
+             *      另：升序相当于o1 - o2，降序相当于o2 - o1
+             */
         }
 }
