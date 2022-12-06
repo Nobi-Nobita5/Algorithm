@@ -1,4 +1,4 @@
-package Java.DuoThread;
+package Java.Thread;
 
 public class SleepThread implements Runnable{
 

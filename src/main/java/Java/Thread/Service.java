@@ -1,4 +1,4 @@
-package Java.DuoThread;
+package Java.Thread;
 /*
 在这个例子中就是sleepThread线程拿到了service对象的同步锁，进入后休眠，但没有释放机锁，
 那么waitThread线程是不能执行这个service对象的其他同步代码块的，也就就是不能进入这一段代码

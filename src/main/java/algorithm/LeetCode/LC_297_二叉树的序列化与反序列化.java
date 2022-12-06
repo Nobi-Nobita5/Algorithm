@@ -59,7 +59,7 @@ public class LC_297_二叉树的序列化与反序列化 {
         return rdeserialize(dataList);
     }
 
-    public String rserialize(TreeNode root, String str) {
+    public String rserialize(TreeNode root, String str) {//str作为参数，方便递归过程中修改
         if (root == null) {
             str += "None,";//None节点也要表示出来，方便反序列化
         } else {
@@ -76,7 +76,7 @@ public class LC_297_二叉树的序列化与反序列化 {
             return null;
         }
 
-        TreeNode root = new TreeNode(Integer.valueOf(dataList.get(0)));
+        TreeNode root = new TreeNode(Integer.valueOf(dataList.get(0)));//序列化，反序列化都是前序遍历
         dataList.remove(0);
         root.left = rdeserialize(dataList);
         root.right = rdeserialize(dataList);
