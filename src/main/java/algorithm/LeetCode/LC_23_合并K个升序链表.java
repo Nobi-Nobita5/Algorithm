@@ -61,6 +61,14 @@ public class LC_23_合并K个升序链表 {
             this.ptr = ptr;
         }
 
+        /**
+         * compareTo默认等同于 o1 - o2，即o1 > o2返回正数，是升序
+         * 在重写方法compareTo()的是时候，会传对象，我们这里称其为比较对象，当前类为当前对象，如下：
+         * 当前对象=比较对象，则返回0；当前对象＞比较对象，则返回1；当前对象＜比较对象，则返回-1；这样是升序排序的。
+         * 当前对象=比较对象，则返回0；当前对象＞比较对象，则返回-1；当前对象＜比较对象，则返回1；这样是降序排序的
+         * @param status2
+         * @return
+         */
         @Override
         public int compareTo(Status status2) {
             return this.val - status2.val;//等同于o1 - o2，升序->小根堆
