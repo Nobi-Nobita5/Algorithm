@@ -43,7 +43,7 @@ import java.util.*;
  * 时间复杂度：
  * 设单词长度为wordLen，单词列表长度为N；
  *  遍历的时候构建图，每一次得到在单词列表里可以转换的所有单词，复杂度是 O(26×wordLen)；
- *  广度优先遍历的最坏情况是O（26×wordLen*N），即遍历了图的每个单词
+ *  Bfs寻找最短路径的最坏情况是O（26×wordLen*N），即遍历了图的每个单词。
  */
 public class LC_127_单词接龙 {
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {

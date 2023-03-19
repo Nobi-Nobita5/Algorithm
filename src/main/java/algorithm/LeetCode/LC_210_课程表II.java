@@ -1,9 +1,6 @@
 package algorithm.LeetCode;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * 现在你总共有 numCourses 门课需要选，记为 0 到 numCourses - 1。给你一个数组 prerequisites ，其中 prerequisites[i] = [ai, bi] ，表示在选修课程 ai 前 必须 先选修 bi 。
@@ -38,7 +35,7 @@ import java.util.Queue;
  * ai != bi
  * 所有[ai, bi] 互不相同
  * ------------------------------------------------------
- * 本题是经典的拓扑排序：输出有向无环图的序列
+ * 本题是经典的拓扑排序：拓扑排序（Topological Sorting）是一种对有向无环图（DAG）进行排序的算法。
  * 拓扑排序：
  * 1.构建图(邻接表方式),数组indeg表示每个节点的入度
  * 2.先将入度为0的节点入队列
@@ -46,11 +43,15 @@ import java.util.Queue;
  * 4.若最后结果集res中节点数等于图中元素个数，则返回res。不等于则证明存在环，无解。
  *
  * 注：
- * 邻接表使用ArrayList<List<Integer>>()作为辅助数据结构，没有用HashMap，因为ArrayList的下标就可以标识课程（0 到 numCourses - 1）。
+ * 有向无环图使用ArrayList<List<Integer>>()作为辅助数据结构，没有用HashMap+List，因为ArrayList的下标就可以标识课程（0 到 numCourses - 1）。
+ *
+ * -------------------------------------------------------
+ * 时间复杂度：O(m+n)，m是课程数，n为先修课程的要求数。
+ * 空间复杂度：O(m+n)，m是课程数，n为先修课程的要求数。储存成邻接表的形式。我们还需要若干个O(m)储存节点的入度和最终答案等。故O(m+n)。
  */
 public class LC_210_课程表II {
     //存储有向图
-    List<List<Integer>> edges;
+    List<List<Integer>> dag;
     //储存每个节点的入度
     int[] indeg;
     //存储答案
@@ -58,18 +59,18 @@ public class LC_210_课程表II {
     //答案下标
     int index;
     public int[] findOrder(int numCourses, int[][] prerequisites) {
-        edges = new ArrayList<List<Integer>>();
+        dag = new ArrayList<List<Integer>>();
         //创建numCourses个集合，每个集合存放一个课程的后继课程，集合顺序按照课程顺序排列
         for (int i = 0; i < numCourses; i++) {
-            edges.add(new ArrayList<Integer>());
+            dag.add(new ArrayList<Integer>());
         }
         indeg = new int[numCourses];
         res = new int[numCourses];
         index = 0;
-        //遍历二维数组中每个一维数组，在第info[1]个集合中添加该课程的后继课程info[0]
+        //遍历二维数组中每个一维数组，在第dag.get(info[1])个集合中添加该课程的后继课程info[0]
         for (int[] info :
                 prerequisites) {
-            edges.get(info[1]).add(info[0]);
+            dag.get(info[1]).add(info[0]);
             ++indeg[info[0]];//课程info[0]的入度+1
         }
         //把入度为0的课程先加入队列
@@ -83,8 +84,8 @@ public class LC_210_课程表II {
             Integer poll = queue.poll();
             //放入答案中
             res[index++] = poll;
-            //遍历该节点的邻居(后继)节点
-            for (int v:edges.get(poll)) {
+            //Bfs搜索该节点的邻居(后继)节点,其实就是遍历List<Integer> list = dag.get(poll)这个集合。
+            for (int v:dag.get(poll)) {
                 //邻居节点入度减一
                 indeg[v]--;
                 //减一之后如果入度为0，则加入队列

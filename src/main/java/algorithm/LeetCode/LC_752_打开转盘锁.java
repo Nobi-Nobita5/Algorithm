@@ -56,7 +56,7 @@ public class LC_752_打开转盘锁 {
         }
         if (dead.contains("0000")) return -1;
         //bfs模板写法：
-        //1.定义栈和visited哈希表
+        //1.定义队列和visited哈希表
         Deque<String> queue = new LinkedList<>();
         queue.offer("0000");
         HashSet<String> visited = new HashSet<>();

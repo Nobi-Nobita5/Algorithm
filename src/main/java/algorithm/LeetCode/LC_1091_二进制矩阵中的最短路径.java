@@ -38,7 +38,7 @@ import java.util.LinkedList;
  * grid[i][j] 为 0 或 1
  * -----------------------------------
  * 思路：BFS广度优先遍历求最短路径：
- * 当前位置的8个方向的单元格为一层BFS，最短路径就是遍历到右下角单元格的BFS的次数
+ * 当前位置的8个方向的单元格为一层遍历，最短路径就是遍历到右下角单元格的遍历的层数
  */
 public class LC_1091_二进制矩阵中的最短路径 {
     public int shortestPathBinaryMatrix(int[][] grid) {
