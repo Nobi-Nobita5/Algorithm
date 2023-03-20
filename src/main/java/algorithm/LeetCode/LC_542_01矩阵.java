@@ -73,8 +73,6 @@ public class LC_542_01矩阵 {
         int[][] dir = {{1,0},{-1,0},{0,1},{0,-1}};
         //广度优先遍历
         while (!deque.isEmpty()){
-            int size = deque.size();
-            for (int i = 0; i < size; i++) {
                 int[] poll = deque.poll();
                 int xx = poll[0];
                 int yy = poll[1];
@@ -82,12 +80,11 @@ public class LC_542_01矩阵 {
                     int x = xx + dir[j][0];
                     int y = yy + dir[j][1];
                     if (x>=0&&x<row&&y>=0&&y<col&&!seen[x][y]){//不越界、未访问
-                        dist[x][y] = dist[xx][yy] + 1;//距离加一
+                        dist[x][y] = dist[xx][yy] + 1;//距离加一,【这一层遍历的出发点的值+1】
                         deque.offer(new int[]{x,y});
                         seen[x][y] = true;
                     }
                 }
-            }
         }
         return dist;
     }

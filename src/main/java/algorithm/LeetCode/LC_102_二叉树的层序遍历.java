@@ -32,7 +32,7 @@ package algorithm.LeetCode;
  * 1.根(父)节点先入队列；
  * 2.根(父)节点出队列，加入数组；
  * 3.每一个父节点出队列，其左右子节点就要加入队列
- * 注：用end标识记录当前层父节点的个数，有几个父节点，就要操作几次（左右子节点入队列算一次操作）
+ * 注：由于需要把当前层节点放在一个集合中，所以当前层有几个父节点，就要操作几次（父节点出队列，左右子节点入队列算一次操作）
  *
  * ---------------------------------------------
  * 时间复杂度：O(n),n是二叉树的节点个数。每个节点只会访问一次。
@@ -66,30 +66,30 @@ import java.util.List;
 public class LC_102_二叉树的层序遍历 {
     public List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> res = new ArrayList<>();//结果集
-        List<Integer> list = new ArrayList<>();//存放每层的父节点
+        List<Integer> list;//存放每层的父节点
         Deque<TreeNode> queue = new LinkedList<>();//队列实现广度优先遍历
         if (root==null) return res;
-        int start = 0, end = 1;//每个父节点的添加进数组算一次操作，end用于记录当前层父节点的个数
         queue.offer(root);//根节点先入队列
         while (!queue.isEmpty()){
-            TreeNode temp = queue.poll();
-            list.add(temp.val);
-            //父节点出队列，加入数组
-            //当前层有几个父节点，就要操作几次
-            start++;
-            //每一个父节点出队列，其左右子节点就要加入队列
-            if (temp.left!=null){
-                queue.offer(temp.left);
+            list = new ArrayList<>();
+            //由于需要把当前层节点放在一个集合中，所以当前层有几个父节点，就要操作几次（父节点出队列，左右子节点入队列算一次操作）
+            //改造BFS，固定queue.size()，用一个for循环实现层序遍历。
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode poll = queue.poll();
+                if (poll != null){
+                    list.add(poll.val);
+                }
+                //每一个父节点出队列，其左右子节点就要加入队列
+                if (poll.left != null){
+                    queue.offer(poll.left);
+                }
+                if (poll.right != null){
+                    queue.offer(poll.right);
+                }
             }
-            if (temp.right!=null){
-                queue.offer(temp.right);
-            }
-            if (start == end){//当前层父节点都添加进数组后。重置start和end
-                start = 0;
-                end = queue.size();
-                res.add(list);
-                list = new ArrayList<>();
-            }
+            //for循环结束，遍历完一层后，将list加入结果集合
+            res.add(list);
         }
         return res;
     }
