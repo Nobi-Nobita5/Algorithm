@@ -68,12 +68,14 @@ public class LC_210_课程表II {
         res = new int[numCourses];
         index = 0;
         //遍历二维数组中每个一维数组，在第dag.get(info[1])个集合中添加该课程的后继课程info[0]
+        //第dag.get(info[1])个集合在dag中的下标刚好也是课程编号，所以可以直接使用上述方法构建邻接表
+        //这一步完成后，每个课程的入度会在indeg[]中统计完成
         for (int[] info :
                 prerequisites) {
             dag.get(info[1]).add(info[0]);
             ++indeg[info[0]];//课程info[0]的入度+1
         }
-        //把入度为0的课程先加入队列
+        //把入度为0的课程i先加入队列
         Queue<Integer> queue = new LinkedList<>();
         for (int i = 0; i < numCourses; i++) {
             if (indeg[i]==0) queue.offer(i);
@@ -85,12 +87,13 @@ public class LC_210_课程表II {
             //放入答案中
             res[index++] = poll;
             //Bfs搜索该节点的邻居(后继)节点,其实就是遍历List<Integer> list = dag.get(poll)这个集合。
+            //搜索邻居(后继)节点的顺序任意，所以可以使用foreach
             for (int v:dag.get(poll)) {
-                //邻居节点入度减一
+                //邻居节点（课程v）入度减一
                 indeg[v]--;
                 //减一之后如果入度为0，则加入队列
                 if (indeg[v]==0) queue.offer(v);
-                //这里不需要标记已访问，因为如果入度减1还有1，那么下次还是需要访问该节点，将其入度-1。
+                //TODO 拓扑排序不需要标记已访问，因为如果入度减1还有1，那么下次还是需要访问该节点，将其入度-1。
             }
         }
         if (index!=numCourses) return new int[0];//index!=numCourses证明始终不能将剩余课程的入度变为0，从而加入队列，放入res集合。即有向图存在环，无解。
