@@ -57,8 +57,11 @@ import java.util.Random;
  * 思路：
  * 用一个数组表示数组w[i]的前缀和:sum[i] = {1,3,6,10}。
  * 那么我们可以在{1-sum[w.length-1]}之间生成随机数x。
- * 然后使用二分查找，找到满足sum[i] >= x的最小值返回【其下标】即可。
+ * 然后使用二分查找，找到【满足sum[i] >= x的最小值】返回【其下标】即可。
  * 注：我们需要根据随机数 x 在前缀和数组中找到一个下标，所以使用二分查找会快一点。
+ * -----------------------------------------------------
+ * 时间复杂度：初始化前缀和数组sum的开销O(n)，每次查找是Log(n),故O(n)。
+ * 空间复杂度：O(n)，即前缀和数组sum的空间开销
  */
 public class LC_528_按权重随机选择 {
 
@@ -82,14 +85,14 @@ public class LC_528_按权重随机选择 {
     }
 
     public int binarySearch(int x){
-        int i = sum.length;
         int lo = 0,hi = sum.length - 1;
+        //lo<hi，代表lo = hi时 sum[mid] >= x 的 最小下标i已经确定。
         while (lo < hi){
             int mid = lo + (hi - lo) / 2;
-            if (sum[mid] < x){
-                lo = mid + 1;
-            }else{
+            if (sum[mid] >= x){
                 hi = mid;
+            }else{
+                lo = mid + 1;
             }
         }
         return lo;

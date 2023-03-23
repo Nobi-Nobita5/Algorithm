@@ -38,6 +38,9 @@ public class LC_540_有序数组中的单一元素 {//[1,1,2,2,3,4,4,8,8]
      *             如果相等，说明当前的mid在x左边，调整左边界；
      *             如果不等，说明当前的mid>=x，调整右边界；
      * 注：按位异或，mid为偶数：【mid ^ 1】 = 【mid + 1】；mid为奇数：【mid ^ 1】 = 【mid - 1】；
+     * ----------------------------------------
+     * 时间复杂度：O(logN)
+     * 空间复杂度: O(1)
      * @param nums
      * @return
      */
@@ -46,7 +49,7 @@ public class LC_540_有序数组中的单一元素 {//[1,1,2,2,3,4,4,8,8]
         while (lo < hi){
             int mid = lo + (hi - lo) / 2;
             if (nums[mid] == nums[mid ^ 1]){
-                lo = mid + 1;
+                lo = mid + 1;//nums[mid] == nums[mid ^ 1]，说明nums[mid]不是单一元素
             }else {
                 hi = mid;
             }
