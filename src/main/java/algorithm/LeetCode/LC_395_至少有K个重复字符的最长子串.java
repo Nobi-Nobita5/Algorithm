@@ -27,9 +27,13 @@ package algorithm.LeetCode;
 public class LC_395_至少有K个重复字符的最长子串 {
     /**
      * 方法一：分治法（递归实现）
-     * 对于字符串s，如果存在某个字符ch，它的出现次数大于 0 且小于 k，我们将字符串按照ch 切分成若干段，
+     * 题意是要求计算最长子串（连续）的长度 max，这个最长子串要满足：每个字符的出现次数 大于等于 k。
+     *
+     * 那么我们可以用出现次数小于 k的字符 对给定字符串 s 进行分割，切分成若干段，
      * 则满足要求的最长子串一定出现在某个被切分的段内，而不能跨越一个或多个段。
-     * 因此，可以考虑分治的方式求解本题。
+     *
+     * 因此，可以考虑分治的方式对字符串进行递归切分，统计max的最大值，
+     * 递归方法的退出条件是，入参 String s 中的字符全部大于 k，直接返回 s.length()。
      * @param s
      * @param k
      * @return
@@ -45,7 +49,7 @@ public class LC_395_至少有K个重复字符的最长子串 {
             charCount[s.charAt(i) - 'a']++;
         }
 
-        //统计<k的字符
+        //统计大于0小于k的字符
         String split = "";
         for (int i = 0; i < charCount.length; i++) {
             int count = charCount[i];
@@ -62,9 +66,10 @@ public class LC_395_至少有K个重复字符的最长子串 {
 
         final String[] split1 = s.split(split);
         int max = 0;
-        for (final String s1 : split1) {//继续对分割后的每一段字符串递归，答案一定在某一段内
-            final int dfs = dfs(s1, k);
-            max = Math.max(max, dfs);
+        for (final String currentString : split1) {//继续对分割后的每一段字符串递归，答案一定在某一段内
+            final int currentMax = dfs(currentString, k);
+            //用每一次递归最终的退出值currentMax，作为一个最大值max的候选人进行比较。
+            max = Math.max(max, currentMax);
         }
 
         return max;
