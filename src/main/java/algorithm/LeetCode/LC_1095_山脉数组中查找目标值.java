@@ -17,7 +17,7 @@ package algorithm.LeetCode;
  *
  * A[0] < A[1] < ... A[i-1] < A[i]
  * A[i] > A[i+1] > ... > A[A.length - 1]
- *  
+ *
  *
  * 你将 不能直接访问该山脉数组，必须通过 MountainArray 接口来获取数据：
  *
@@ -60,6 +60,7 @@ package algorithm.LeetCode;
  *  * }
  *
  *  -------------------------------------------
+ *  本题中的山脉数组，只有一个峰顶。
  *  * 1.先用二分法找到峰顶peak；
  *  * 2.再先左（升序）后右（降序）使用二分查找
  *  * 3.降序的二分查找，操作相反，所以定义flag标识
@@ -75,15 +76,26 @@ public class LC_1095_山脉数组中查找目标值 {
                 r = mid;//此时mid可能就是peak
             }
         }
+        //找到了峰顶peak
         int peak = l;
-        int index = binarySearch(target, mountainArr, 0, peak, true);
+        int index = binarySearch(target, mountainArr, 0, peak, true);//对峰顶左边的升序数组进行二分查找
         if (index != -1) {
             return index;
         }
-        return binarySearch(target, mountainArr, peak + 1, mountainArr.length() - 1, false);
+        return binarySearch(target, mountainArr, peak + 1, mountainArr.length() - 1, false);//对峰顶右边的降序数组进行二分查找
     }
+
+    /***
+     * //对峰顶左右两边的的有序数组分别进行二分查找
+     * @param target
+     * @param mountainArr
+     * @param left
+     * @param right
+     * @param flag true是代表升序数组的查找，flase代表降序数组的查找
+     * @return
+     */
     public int binarySearch(int target, MountainArray mountainArr,int left,int right,Boolean flag){
-        while (left <= right){
+        while (left <= right){//两个指针都会跳过mid，不保存mid(可能的最终答案)，所以left = right指针相遇时也要进行一次循环，以便执行int mid = (left + right)/2，返回mid下标。
             int mid = (left + right)/2;
             if (target < mountainArr.get(mid)){
                 if (flag){
@@ -98,9 +110,9 @@ public class LC_1095_山脉数组中查找目标值 {
                     right = mid - 1;
                 }
             }else {
-                return mid;
+                return mid;//返回mid下标。
             }
         }
-        return -1;
+        return -1;//找不到与target相等的元素下标就返回-1。
     }
 }

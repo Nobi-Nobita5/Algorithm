@@ -30,17 +30,18 @@ package algorithm.LeetCode;
  * -109 <= target <= 109
  *
  * -----------------------------------
- * 方法一：n次二分查找
+ * 方法一：n次二分查找  时间复杂度:O(logN)
  * ------------------------
  * 方法二：利用行列都升序的特点，移动边界x、y   时间复杂度:O(m+n)
  */
 public class LC_240_搜索二维矩阵II {
+    //方法二，移动边界
     public boolean searchMatrix(int[][] matrix, int target) {
-        int x = 0, y = matrix[0].length - 1;
+        int x = 0, y = matrix[0].length - 1;//从矩阵的左下角开始找
         while (x < matrix.length && y >= 0){
-            if (matrix[x][y] > target){
+            if (matrix[x][y] > target){//如果当前元素大于target，说明要减小当前元素，那就y--。
                 y--;
-            }else if (matrix[x][y] < target){
+            }else if (matrix[x][y] < target){//如果当前元素小于target，说明要增大当前元素，那就x++。
                 x++;
             }else {
                 return true;

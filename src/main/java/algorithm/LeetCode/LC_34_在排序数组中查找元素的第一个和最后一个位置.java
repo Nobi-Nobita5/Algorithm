@@ -35,34 +35,40 @@ package algorithm.LeetCode;
  * 先找到target第一次出现的位置，再找到target+1第一次出现的位置；
  *
  * 总结：
- * 二分法查找的运用总不过两种情况：
- * 1.在不包含重复元素的有序数组查找到该元素的位置；
- * 2.在包含重复元素的有序数组查找到该元素第一次出现的位置；
- *   （查找最后一次出现的位置，也可以通过找到后面一个元素第一次出现的位置得到结果）
+ * 二分法查找的两种情况：
+ * 1.在不包含重复元素的有序数组查找元素的位置；
+ * 2.在包含重复元素的有序数组查找元素【第一次】出现的位置；
+ *   （查找最后一次出现的位置，可以通过找到后面一个元素【第一次】出现的位置得到结果）
+ *   （所以如果既要找到元素第一次出现的位置，也要找到该元素最后一次出现的位置，例如本题，可以定义一个方法，调用两次。）
  */
 public class LC_34_在排序数组中查找元素的第一个和最后一个位置 {
     public int[] searchRange(int[] nums, int target) {
         int lo = solve(nums,target);//第一次出现的位置
         int hi = solve(nums,target+1);//后面一个元素第一次出现的位置，就可以得到结果
-        return (lo==nums.length||nums[lo]!=target)?new int[]{-1,-1}:new int[]{lo,hi-1};//
+        //lo==nums.length代表查找的元素超过了数组最大值，nums[lo]!=target代表查找的元素不存在。
+        return (lo==nums.length||nums[lo]!=target)?new int[]{-1,-1}:new int[]{lo,hi-1};
     }
+    /**
+     * @param array
+     * @param k
+     * @return
+     * 1.返回元素 k 在【非降序数组】中第一次出现的下标。
+     * 2.如果元素 k 不存在，返回大于 k 的最小元素的下标。
+     * 3.如果元素 k 超过了【非降序数组】的最大值。则大于 k 的最小元素的下标也不存在，返回数组长度array.length。
+     * (这种情况返回数组长度array.length比较方便，我们只需要把 hi 初始化为array.length。
+     *  如果元素 k 超过了【非降序数组】的最大值。那么 k 一定大于array[mid]，会一直调整左边界lo，直至两指针相遇，最后返回的 lo = hi = array.length)
+     */
     private  int solve(int[] array, int k) {
         int lo = 0;
         int hi = array.length;
-        //因为最后一个元素可能是target，
-        //那么用此方法查找target+1时，就要返回lo=hi=array.length,故hi初始化为array.length
-        while (lo < hi) {
+        while (lo < hi) {//hi指针保存了mid，所以当lo = hi时，直接返回 lo或者hi即可，不需要再进行一次循环。
             int mid = (hi + lo) / 2;
             if (array[mid]>=k){
                 hi = mid;
             }else {
-                lo = mid+1;
-            }//保证返回的lo是k第一次出现的位置，如果不存在，返回的就是后面一个元素的位置
-            //那么，如果返回的lo=array.length或者nums[lo]!=target就可以成为当前元素不存在的判断条件
+                lo = mid+1;//调整左边界
+            }
         }
-        return lo;
-        /*
-        hi只会在等于mid的数字中往前移动，当lo = hi时，lo，已经到了k第一次出现的位置，所以返回lo
-         */
+        return lo;//这里必须返回lo，因为hi记录的可能不是第一次出现的位置，但array[mid] < k时 lo = mid + 1，所以lo下标的元素如果等于target，那一定是第一次出现。
     }
 }

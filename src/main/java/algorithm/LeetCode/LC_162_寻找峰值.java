@@ -32,9 +32,12 @@ package algorithm.LeetCode;
  *
  * ---------------------------------------------------
  * 方法：二分查找
- * 即LeetCode1095 Find in Mountain Array中的第一步：找出peak.
+ * 数组可能包含多个峰值，在这种情况下，返回任意一个，所以我们直接把本题看成只有一个峰值即可。
+ * 另外本题条件也不苛刻，比如[1,3,4,5,6]数组中 6 也算是峰值。
+ * 所以写法和LeetCode1095 Find in Mountain Array中的第一步相同：找出peak。
  */
 public class LC_162_寻找峰值 {
+
     public int findPeakElement(int[] nums) {
         if (nums.length == 0) return 0;
         int lo = 0,hi = nums.length-1,mid = 0;
