@@ -23,8 +23,7 @@ package algorithm.LeetCode;
  * s 仅由数字和英文字母组成
  */
 public class LC_5_最长回文子串 {
-
-
+    
     /**
      * 方法一：双指针的中心扩散
      * 1.遍历所有可能是回文子串的中心位置（中心位置可能是一个元素或者两个元素）
@@ -78,12 +77,12 @@ public class LC_5_最长回文子串 {
      */
     public static String longestPalindrome2(String s) {
         String t = "";
-        for (int i = 1; i < s.length()+1; i++) {
-            for (int j = 0; j < s.length() - i + 1; j++) {
-                String substring = s.substring(j, j + i);
-                boolean equals = substring.equals(new StringBuilder(substring).reverse().toString());
-                if (equals == true && substring.length()>t.length())
-                    t = substring;
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = i+1; j < s.length(); j++) {
+                String currentString  = s.substring(i,j);
+                boolean equals = currentString.equals(new StringBuilder(currentString).reverse());
+                if (equals && currentString.length() > t.length())
+                    t = currentString;
             }
         }
         return t;
@@ -115,14 +114,23 @@ public class LC_5_最长回文子串 {
         if (len <= 1) return s;
         int start = 0;
         int maxLen = 1;
-        boolean[][] dp = new boolean[len][len];//dp[][] ：子串 s[left, right] 是否为回文子串，这里 left 和 right 分别表示字符串 s 的左右边界，并且是可以取到的。
+        //为了存放左右指针圈定的子串的回文性质，需要定义长宽都为len的二维数组dp[][]。因为左右指针都可能指向字符串的最后一个元素。
+        //dp[left][right]用于表示子串 s[left, right] 是否为回文子串，这里 left 和 right 分别表示字符串 s 的左右边界。
+        boolean[][] dp = new boolean[len][len];
+        //初始化,左右指针相同时，指向同一个字符，该字符表示的字符串一定是回文串。
         for (int i = 0; i < len; i++) {
             dp[i][i] = true;
         }
-        for (int right = 1; right < len; right++) {//此处双重循环必须这么写，才能保证状态转移方程有效
+        for (int right = 1; right < len; right++) {
+            //双重循环的写法要保证状态转移方程有效，
+            //即两指针圈定的范围需要由小到大：
+            // 1.外层循环的right指针从1开始不断变大，每次界定内层循环的右边界。
+            // 2.内层循环的left指针从左边界0开始向又移动，每次界定内层循环的左边界。
+            // 3.相当于双重循环圈定的子串范围在不断变大。
+            // 4.如果通过左右指针能直接判断当前子串是否为回文串，则直接返回。如果不能通过左右指针直接判断，则调用状态转移方程，依据子串的子串判断回文性。
             for (int left = 0; left < right; left++) {
                 if (s.charAt(left) != s.charAt(right)){
-                    dp[left][right] = false;//次子串不是回文子串
+                    dp[left][right] = false;//该子串不是回文子串
                 }else {
                     if ((right - left) <= 2){
                         dp[left][right] = true;//中间只夹着一个字符,肯定是回文子串
@@ -130,7 +138,7 @@ public class LC_5_最长回文子串 {
                         dp[left][right] = dp[left + 1][right - 1];//状态转移
                     }
                 }
-
+                //每次内层循环，更新最长回文子串的长度 和 回文子串初始下标
                 if (dp[left][right]){
                     int currLen = right - left + 1;
                     if (currLen > maxLen) {
@@ -140,6 +148,7 @@ public class LC_5_最长回文子串 {
                 }
             }
         }
+        //substring截取，左边界元素包含，右边界元素不包含
         return s.substring(start,start + maxLen);
     }
 }

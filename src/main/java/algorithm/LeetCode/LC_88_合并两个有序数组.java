@@ -41,7 +41,9 @@ package algorithm.LeetCode;
  *
  * 进阶：你可以设计实现一个时间复杂度为 O(m + n) 的算法解决此问题吗？
  *
- * 方法：双指针，时间复杂度为 O(m + n)
+ * 方法：双指针：
+ * 时间复杂度为 O(m + n)
+ * 空间复杂度为 O(m + n)
  */
 public class LC_88_合并两个有序数组 {
     public void merge(int[] nums1, int m, int[] nums2, int n) {
