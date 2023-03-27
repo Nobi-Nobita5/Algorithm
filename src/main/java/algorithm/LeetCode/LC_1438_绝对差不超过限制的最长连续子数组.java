@@ -48,6 +48,9 @@ import java.util.TreeMap;
  * 用滑动窗口解决，需要返回窗口的最大值：
  * 用TreeMap(有序)存储数字和出现的次数；
  * left = 0, right = 0两个下标代表滑动窗口的左右边界，不断更新ret，取最大值
+ *-----------------------------------------------
+ * 时间复杂度：O(NlogN),N是数组长度，滑动窗口的时间复杂度是O(N),有序集合Treemap插入和删除都是O(logN)。
+ * 空间复杂度：O(N),N是数组长度，最坏的情况下，Treemap和原数组一样大。
  */
 public class LC_1438_绝对差不超过限制的最长连续子数组 {
     public int longestSubarray(int[] nums, int limit) {
@@ -65,9 +68,10 @@ public class LC_1438_绝对差不超过限制的最长连续子数组 {
         //本题中用TreeMap只有一个作用，就是让窗口内的元素随时有序，可以通过map.lastKey() - map.firstKey()求得窗口最大差值。
         int n = nums.length;
         int left = 0, right = 0;//两个下标代表滑动窗口的左右边界
-        int ret = 0;//right - left + 1为返回值
+        int res = 0;//right - left + 1为返回值
         while (right < n){
             map.put(nums[right],map.getOrDefault(nums[right],0) + 1);
+            //内层while：每一次右窗口右移put元素之后，都需要循环找出满足限制限制的子数组
             while (map.lastKey() - map.firstKey() > limit){//当前子数组不满足限制
                 map.put(nums[left],map.get(nums[left]) - 1);//则子数组第一个元素，value(次数)减一
                 if (map.get(nums[left]) == 0){
@@ -76,9 +80,10 @@ public class LC_1438_绝对差不超过限制的最长连续子数组 {
                 }
                 left++;//左窗口右移
             }
-            ret = Math.max(ret,right - left + 1);
+            //每次内层while结束，更新一次res
+            res = Math.max(res,right - left + 1);
             right++;//子数组满足限制之后，右窗口右移，继续put下一个元素
         }
-        return ret;
+        return res;
     }
 }

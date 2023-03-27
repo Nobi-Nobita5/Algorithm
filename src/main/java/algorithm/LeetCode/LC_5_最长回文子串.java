@@ -50,10 +50,10 @@ public class LC_5_最长回文子串 {
         return s.substring(start,start + maxLen);
     }
     /**
-     * 回文子串的长度
+     * 返回回文子串的长度
      * @param s
-     * @param left
-     * @param right
+     * @param left 回文中心左指针
+     * @param right 回文中心右指针
      * @return
      */
     public int expandAroundCenter(String s,int left,int right){

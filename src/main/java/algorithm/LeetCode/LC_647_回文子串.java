@@ -49,7 +49,7 @@ public class LC_647_回文子串 {
     }
 
     /**
-     * 当前中心扩散的回文子串个数
+     * 返回当前中心扩散的回文子串个数
      * @param s
      * @param left
      * @param right

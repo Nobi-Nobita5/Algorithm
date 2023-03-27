@@ -34,7 +34,8 @@ package algorithm.LeetCode;
  *
  * ------------------------------------------
  * 思路：双指针相向移动判断 "A man, a plan, a canal: Panama"；
- * 两个指针最多只会移动N次，N是字符串长度，所以时间复杂度是O(N)
+ *       遇到非字母或数字的字符，跳过。
+ * 时间复杂度：两个指针最多只会移动N次，N是字符串长度，所以时间复杂度是O(N)
  */
 public class LC_125_验证回文串 {
     public boolean isPalindrome(String s) {

@@ -37,6 +37,8 @@ package algorithm.LeetCode;
  *
  * ----------------------------------
  * 思路：相向双指针
+ * 时间复杂度：O(n)
+ * 空间复杂度：O(1) 常量级的额外空间
  */
 public class LC_167_两数之和II_输入有序数组 {
     public int[] twoSum(int[] numbers, int target) {
@@ -46,7 +48,7 @@ public class LC_167_两数之和II_输入有序数组 {
                 right--;
             }else if(numbers[left] + numbers[right] < target){
                 left++;
-            }else return new int[]{++left,++right};
+            }else return new int[]{++left,++right};//因为题目要求返回的下标 1 <= index1 < index2 <= numbers.length
         }
         return new int[]{0,0};
     }

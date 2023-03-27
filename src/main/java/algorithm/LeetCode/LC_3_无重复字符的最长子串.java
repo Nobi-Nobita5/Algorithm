@@ -39,6 +39,7 @@ import java.util.Set;
  *
  *
  * 时间复杂度：每个指针都会遍历一遍字符串，O（N）
+ * 空间复杂度：HashSet，O(N)
  */
 public class LC_3_无重复字符的最长子串 {
     public int lengthOfLongestSubstring(String s) {
@@ -55,6 +56,8 @@ public class LC_3_无重复字符的最长子串 {
                 characters.add(s.charAt(right));
                 right++;
             }
+            //本题右指针移动条件与LC_424不同。如果HashSet包含s.charAt(right)，则右指针不能右移，左指针左移并删除元素，直至HashSet不包含s.charAt(right)。
+
             // 第 left 到 right 个字符是一个极长的无重复字符子串
             res = Math.max(res,right - left);
         }

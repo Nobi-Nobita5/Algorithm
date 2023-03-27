@@ -37,6 +37,8 @@ public class LC_283_移动零 {
      * 左指针左边均为非零数；
      * 右指针左边直到左指针处均为零。
      * 因此每次交换，都是将左指针的零与右指针的非零数交换，且非零数的相对顺序并未改变。
+     *
+     * 时间复杂度：O(N)
      * @param nums
      */
     public void moveZeroes(int[] nums) {
@@ -65,7 +67,7 @@ public class LC_283_移动零 {
             if(nums[right] != 0) {
                 nums[left++] = nums[right];
             }
-            ++right;
+            right++;
         }
 
         for(int i = left; i < m; i++){

@@ -41,14 +41,16 @@ import java.util.*;
  * -105 <= nums[i] <= 105
  *
  * ----------------------------------
- * 思路：排序 + 双指针,HashSet去重
+ * 思路：排序 + 双指针 (双指针操作【有序数组】),HashSet去重
  * 先固定第一个数a，然后b、c只能从两边向中间靠（在a之后）。细节条件就是去重处理
+ * 时间复杂度：O(n^2)
+ * 空间复杂度：O(N)
  */
 public class LC_15_三数之和 {
     public List<List<Integer>> threeSum(int[] nums) {
         int n = nums.length;
         Arrays.sort(nums);
-        Set<List<Integer>> list = new HashSet<List<Integer>>();//HashSet去重
+        Set<List<Integer>> list = new HashSet<>();//HashSet去重
         for (int i = 0; i < n - 2; i++) {
             int left = i+1, right = n - 1;
             while (left < right){
