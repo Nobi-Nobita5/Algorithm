@@ -44,8 +44,9 @@ public class LC_1004_最大连续1的个数III {
             if (nums[right] == 0){
                 zeros++;
             }
-            if (zeros > k && nums[left++] == 0){//zeros > k 才会执行left++
-                zeros--;
+            if (zeros > k){//zeros > k 才会执行left++
+                if (nums[left] == 0) zeros--;
+                left++;
             }
             right++;
         }

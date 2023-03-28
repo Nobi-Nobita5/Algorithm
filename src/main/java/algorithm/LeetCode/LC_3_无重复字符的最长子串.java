@@ -44,21 +44,22 @@ import java.util.Set;
 public class LC_3_无重复字符的最长子串 {
     public int lengthOfLongestSubstring(String s) {
         // 哈希集合，记录每个字符是否出现过
-        Set<Character> characters = new HashSet<>();
+        HashSet<Character> set = new HashSet<>();
+        int left = 0, right = 0;
         int n = s.length();
-        int right = 0;
         int res = 0;
-        for (int left = 0; left < n; ++left) {
-            // 左指针向右移动一格，移除一个字符
-            if (left!=0) characters.remove(s.charAt(left - 1));
-            while (right < n && !characters.contains(s.charAt(right))){
-                // 不断地移动右指针,并添加元素至哈希集合
-                characters.add(s.charAt(right));
+        while (right < n){
+            if (set.contains(s.charAt(right))){
+                //在哈希集合中出现过，则左指针右移，删除一个元素
+                //本题右指针移动条件与LC_424不同。如果HashSet包含s.charAt(right)，则右指针不能右移，左指针左移并删除元素，直至HashSet不包含s.charAt(right)。
+                //然后才能指针右移，继续寻找可能存在的更大长度。
+                set.remove(s.charAt(left));
+                left++;
+            }else {//没有在哈希集合中出现过，则添加进哈希集合，右指针右移
+                set.add(s.charAt(right));
                 right++;
             }
-            //本题右指针移动条件与LC_424不同。如果HashSet包含s.charAt(right)，则右指针不能右移，左指针左移并删除元素，直至HashSet不包含s.charAt(right)。
-
-            // 第 left 到 right 个字符是一个极长的无重复字符子串
+            //在每一次判断，指针移动后，记录最大长度。
             res = Math.max(res,right - left);
         }
         return res;

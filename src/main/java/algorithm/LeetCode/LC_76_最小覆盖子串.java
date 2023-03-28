@@ -44,8 +44,10 @@ import java.util.Map;
  * 我们在s上移动窗口，通过移动r指针不断扩张窗口。当窗口包含t全部所需字符后，如果能收缩，我们就收缩得到最小窗口
  *
  * 时间复杂度：
- *      最坏情况下左右指针对 s 的每个元素各遍历一遍，哈希表中对 s 中的每个元素各插入、删除一次，对 t 中的元素各插入一次。
- *      每次检查是否可行会遍历整个 t 的哈希表，哈希表的大小与字符集的大小有关，设字符集大小为 C，则渐进时间复杂度为 O(C*|s|+|t|)。
+ *      建立维护t中元素的哈希表，O(|t|)。
+ *      最坏情况下左右指针对 s 的每个元素各遍历一遍，哈希表中对 s 中的每个元素各插入、删除一次，对 t 中的元素各插入一次。O(|s|)
+ *      每次检查是否可行会遍历整个 t 的哈希表，哈希表的大小与字符集的大小有关，设字符集大小为 C。O(C)。
+ *      故渐进时间复杂度为 O(|t| + |s|*C)。
  * 空间复杂度：这里用了两张哈希表作为辅助空间，每张哈希表最多不会存放超过字符集大小的键值对，我们设字符集大小为 C ，则渐进空间复杂度为 O(C)。
  */
 public class LC_76_最小覆盖子串 {
@@ -60,12 +62,13 @@ public class LC_76_最小覆盖子串 {
             char c = t.charAt(i);
             ori.put(c, ori.getOrDefault(c, 0) + 1);
         }
+        //两指针作为在s上的窗口边界
         int l = 0, r = -1;
         int len = Integer.MAX_VALUE, ansL = -1, ansR = -1;
         int sLen = s.length();
         while (r < sLen) {
             ++r;
-            if (r < sLen && ori.containsKey(s.charAt(r))) {//字符也存在于t中,该条件可以不要
+            if (r < sLen && ori.containsKey(s.charAt(r))) {//字符也存在于t中,该条件可以不要，加上可以节省cnt的空间
                 cnt.put(s.charAt(r), cnt.getOrDefault(s.charAt(r), 0) + 1);
             }
             while (check() && l <= r) {

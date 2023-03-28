@@ -60,29 +60,14 @@ public class LC_347_前K个高频元素 {
         for (Map.Entry<Integer,Integer> entry://Map.Entry<Integer,Integer> entry要指定类型
              map.entrySet()) {
             int num = entry.getKey(), count = entry.getValue();
-            if (pq.size() >= k){
+            if (pq.size() >= k){//pq中存储的元素个数大于等于k时，offer进一个元素，pq小顶堆重排序，再pq.poll()出最小的元素。让pq中始终保持存储前K个高频元素。
                 pq.offer(new int[]{num,count});
                 pq.poll();
             }else {
                 pq.offer(new int[]{num,count});
             }
         }
-        /**
-         * 遍历map集合时，队列的操作还有一种写法：先比较当前元素和对顶元素（这种方法感觉有点多此一举，没必要比较）
-         * for (Map.Entry<Integer, Integer> entry : occurrences.entrySet()) {//Map.Entry<Integer,Integer> entry要指定类型
-         *             int num = entry.getKey(), count = entry.getValue();
-         *             if (queue.size() == k) {
-         *                 if (queue.peek()[1] < count) {
-         *                    //建立大顶堆：如果堆顶元素次数更小，说明目前的k个元素的次数不是频次最高的，弹出栈顶频次第二高的！！！不合适，故还是要建立小顶堆
-         *                     //建立小顶堆：如果堆顶元素更大，说明已经有k个元素次数大于当前元素的次数，所以舍弃当前元素；当堆顶元素更小时，弹出栈顶元素，操作堆加入当前元素
-         *                     queue.poll();
-         *                     queue.offer(new int[]{num, count});
-         *                 }
-         *             } else {
-         *                 queue.offer(new int[]{num, count});
-         *             }
-         *         }
-         */
+
         int res[] = new int[k];
         for (int i = 0; i < k; i++) {
             res[i] = pq.poll()[0];
