@@ -36,21 +36,27 @@ import java.util.Set;
  *
  * 在排除重复元素的情况下，第 n 次从最小堆中取出的元素即为第 n 个丑数。
  *
+ * ------------------------
+ * 堆中使用long类型存储，因为用int存储第n个丑数可能会溢出。返回要求int类型，我们（int）转换一下就好了。
+ *
+ * 时间复杂度：O(NlogN)，n次循环获取第n个丑数，每次操作堆的时间复杂度为O(logN)。
+ * 空间复杂度：O(N)，取决于最小堆和哈希表的大小。
+ *
  */
 public class LC_264_丑数II {
-    public int nthUglyNumber(int n) {
+    public static int nthUglyNumber(int n) {
         int[] factors = {2, 3, 5};
         Set<Long> seen = new HashSet<Long>();
-        PriorityQueue<Long> heap = new PriorityQueue<Long>();
+        PriorityQueue<Long> heap = new PriorityQueue<Long>();//PriorityQueue默认是升序。
         seen.add(1L);
         heap.offer(1L);
         int ugly = 0;
         for (int i = 0; i < n; i++) {
-            long curr = heap.poll();
+            long curr = heap.poll();//用 long 类型变量 curr 接收，以便下方基本类型之间的转换 long -> int。
             ugly = (int) curr;
             for (int factor : factors) {
                 long next = curr * factor;
-                if (seen.add(next)) {//add()重复元素返回false
+                if (seen.add(next)) {//add(),如果元素已存在，会返回false
                     heap.offer(next);
                 }
             }
@@ -63,7 +69,9 @@ public class LC_264_丑数II {
  * 题意：找到第n个丑数
  * 丑数定义：丑数是由2、3、5三个质因子中任意几个组成的数。1 通常也被视为丑数。
  * 方法二：动态规划
- * 时间复杂度：O(n)
+ *
+ * 时间复杂度：O(N)
+ * 空间复杂度：O(N)
  */
 class LC_264_丑数II_方法二 {//[1, 2, 3, 4, 5, 6, 8, 9, 10, 12]
     public int nthUglyNumber(int n) {

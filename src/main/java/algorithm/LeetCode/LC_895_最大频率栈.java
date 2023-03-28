@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Stack;
 
 /**
- * 设计一个类似堆栈的数据结构，将元素推入堆栈(栈)，并从堆栈中弹出出现频率最高的元素。
+ * 设计一个类似堆栈的数据结构，将元素推入堆栈(stack)，并从堆栈中弹出出现频率最高的元素。
  *
  * 实现 FreqStack 类:
  *
@@ -43,13 +43,21 @@ import java.util.Stack;
  *
  * --------------------------------------------------------------
  * 思路：HashMap+栈
+ * 首先可能会想到使用大顶堆，但大顶堆在两个元素频率相同时无法输出栈顶元素。
+ * 创建一个哈希表1，键是频率，值是栈（存放该频率的所有元素）。每次输出最大频率对应的栈中的栈顶元素即可。
+ * 另建一个哈希表2，键是元素，值是该元素的频率。用于push()方法更新哈希表1时获取当前元素的频率。
+ *
  * push()方法时：
- *      HashMap<Integer,Integer> numFreqMap用于存储元素的频率。并动态维护当前最高频率maxFreq；
  *      HashMap<Integer,Stack<Integer>> freqStkMap存储当前频率的所有元素。
+ *      HashMap<Integer,Integer> numFreqMap用于存储元素的频率。并动态维护当前最高频率maxFreq；
  * pop()方法时：
  *      返回值是最高频率对应的栈顶元素,从Map<Integer,Stack<Integer>> freqStkMap中获得；
- *      如果栈顶元素出栈后，当前最高频率的栈为空, 说明最高频率需要更新 (更新为最高频率maxFreq减去1)
+ *      如果栈顶元素出栈后，当前最高频率对应的栈为空, 说明最高频率需要更新 ，更新为最高频率maxFreq减去1
+ *      （这种情况下，最高频率对应的元素被弹出一个，那么该元素剩余的个数构成的最高频率一定是 maxFreq-1 ）
  * 多敲两遍
+ *---------------------------
+ * 时间复杂度：O(1),操作一个元素的时间复杂度
+ * 空间复杂度：O(n),哈希表和栈的空间开销
  */
 public class LC_895_最大频率栈 {
     Map<Integer,Stack<Integer>> freqStkMap;
@@ -68,7 +76,9 @@ public class LC_895_最大频率栈 {
         if (currFreq > maxFreq) {
             maxFreq = currFreq;
         }
-        // 按频率不同, 建立栈. 存入出现过该频率的数字
+        // 对于没出现过的频率, 向Map中存入该频率和新建的栈，然后向栈中添加元素。
+        // 对于出现过的频率,都不需要调用Hashmap.put()方法，我们直接向栈中添加元素即可。
+        // 这么操作的原因是：由于freqStkMap的值是栈，我们在put时，无法getOrDefault赋默认值。
         freqStkMap.putIfAbsent(currFreq, new Stack<>());//putIfAbsent缺席key则存入
         freqStkMap.get(currFreq).push(val);
     }

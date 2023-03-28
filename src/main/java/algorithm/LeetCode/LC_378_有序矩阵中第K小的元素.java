@@ -38,8 +38,8 @@ import java.util.PriorityQueue;
  * 你能在 O(n) 的时间复杂度下解决这个问题吗?这个方法对于面试来说可能太超前了，但是你会发现阅读这篇文章（ this paper ）很有趣。
  *
  * --------------------------------------
- * 方法一：小根堆，时间复杂度O(n^2),因为遍历了二维数组
- * 把所有元素放进小根堆中，结果就是poll()出的第n个
+ * 方法一：小根堆，把所有元素放进小根堆中，结果就是poll()出的第n个。
+ * 时间复杂度：O(n^2),n是方形矩阵的边长，因为遍历了二维数组
  */
 public class LC_378_有序矩阵中第K小的元素 {
     public int kthSmallest(int[][] matrix, int k) {
@@ -60,5 +60,58 @@ public class LC_378_有序矩阵中第K小的元素 {
             res = queue.poll();
         }
         return  res;
+    }
+}
+
+/**
+ * 方法二：二分查找
+ * 1. 找出二维矩阵中最小的数 left，最大的数rright，那么第 k 小的数必定在left ~right 之间。
+ * 2. mid =(left + right)/2；在二维矩阵中寻找小于等于 mid 的元素个数 count。  【时间复杂度：O(n)，n是方形矩阵的边长】
+ * 3. 若这个count 小于k，表明第 k 小的数在右半部分且不包含mid。调整左边界。
+ * 4. 若这个count 大于k，表明第 k 小的数在左半部分且可能包含mid。调整右边界。
+ * 5. 因为每次循环中都保证了第 k 小的数在left ~right之间，当left=right 时，第k小的数即被找出。
+ * 主意：这里的left mid right是数值，不是索引位置。  【二分时间复杂度：O(n)，n是方形矩阵的边长】
+ *
+ * 时间复杂度：O(nlogn)
+ * 空间复杂度：O(1)
+ * */
+class LC_378_有序矩阵中第K小的元素_方法二{
+    public int kthSmallest(int[][] matrix, int k) {
+        int row = matrix.length;
+        int col = matrix[0].length;
+        int left = matrix[0][0];
+        int right = matrix[row - 1][col - 1];
+        while (left < right) {
+            // 每次循环都保证第K小的数在start~end之间，当start==end，第k小的数就是start
+            int mid = (left + right) / 2;
+            // 找二维矩阵中<=mid的元素总个数
+            int count = findNotBiggerThanMid(matrix, mid, row, col);
+            if (count < k) {
+                // 第k小的数在右半部分，且不包含mid
+                left = mid + 1;
+            } else {
+                // 第k小的数在左半部分，可能包含mid
+                right = mid;
+            }
+        }
+        return right;
+    }
+
+    private int findNotBiggerThanMid(int[][] matrix, int mid, int row, int col) {
+        // 以列为单位找，找到每一列最后一个<=mid的数即知道每一列有多少个数<=mid
+        int i = row - 1;
+        int j = 0;
+        int count = 0;
+        while (i >= 0 && j < col) {
+            if (matrix[i][j] <= mid) {
+                // 第j列有i+1个元素<=mid
+                count += i + 1;
+                j++;
+            } else {
+                // 第j列目前的数大于mid，需要继续在当前列往上找
+                i--;
+            }
+        }
+        return count;
     }
 }

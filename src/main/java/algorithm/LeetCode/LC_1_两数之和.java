@@ -39,6 +39,8 @@ import java.util.HashMap;
  *思路：HashMap
  * 新建一个哈希表，判断target - nums[i]是否存在于该哈希表中；
  * 存在则返回下标，不存在则把元素存进HashMap中，
+ * ---------------
+ * 时间复杂：O(n)
  */
 public class LC_1_两数之和 {
     public int[] twoSum(int[] nums, int target) {
