@@ -63,32 +63,26 @@ public class LC_23_合并K个升序链表 {
         }
 
         /**
-<<<<<<< HEAD
          * Comparable接口可以用于实现自定义类的排序规则（通过重写compareTo方法）。
          * Comparator接口可以在类外部定义排序规则（通过重写compare方法）。
          * ----------------------------------------------------
-=======
->>>>>>> 9698dc7 (力扣提交)
-         * 在重写方法compareTo()的是时候，会传对象，我们这里称其为比较对象，当前类为当前对象，如下：
+         * 在重写方法compareTo()的是时候，会传对象，我们这里称其为比较对象，this为当前对象，如下：
          * 当前对象=比较对象，返回0；当前对象＞比较对象，返回1；当前对象＜比较对象，返回-1；这样是升序排序的。
          * 当前对象=比较对象，返回0；当前对象＞比较对象，返回-1；当前对象＜比较对象，返回1；这样是降序排序的
          *
-<<<<<<< HEAD
          * 这里的Comparable.compareTo()方法中的参数是 【来比较的元素】，
          * 【return this.val - status2.val】 等同于 【待比较元素 - 来比较的元素(o1 - o2)】，
-         *  即 【待比较元素 > 来比较的元素(o1 > o2)】返回正数，是升序。
-=======
+         *  即 【待比较元素 > 来比较的元素(o1 > o2)】时返回正数，是升序。
          * 这里的compareTo默认等同于 o1 - o2，即o1 > o2返回正数，是升序
->>>>>>> 9698dc7 (力扣提交)
          * @param status2
          * @return
          */
         @Override
         public int compareTo(Status status2) {
-            return this.val - status2.val;//等同于o1 - o2，升序->小根堆
+            return this.val - status2.val;//等同于o1 - o2，升序
         }
     }
-    PriorityQueue<Status> queue = new PriorityQueue<Status>();
+    PriorityQueue<Status> queue = new PriorityQueue<Status>();//升序->小根堆
 
     public ListNode mergeKLists(ListNode[] lists) {
         for(ListNode node: lists){//维护每个链表head节点到小根堆中
@@ -103,7 +97,7 @@ public class LC_23_合并K个升序链表 {
             tail.next = f.ptr;//最小的节点连接在新建的链表之后,并弹出队列
             tail = tail.next;
             if (f.ptr.next!=null){
-                queue.offer(new Status(f.ptr.next.val, f.ptr.next));//该最小节点所在队列之后的节点维护进队列(小根堆)
+                queue.offer(new Status(f.ptr.next.val, f.ptr.next));//该最小节点所在链表后面的节点维护进优先级队列(小根堆)
             }
         }
         return head.next;
