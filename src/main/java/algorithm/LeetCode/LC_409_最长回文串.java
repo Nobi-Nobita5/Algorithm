@@ -26,11 +26,13 @@ package algorithm.LeetCode;
  *
  * ------------------------------------------
  * 思路：出现次数为偶数的元素可以都要、出现次数为奇数的元素最多只能要一个
+ * 时间复杂度：O(N)
+ * 空间复杂度：O(1)，创建了长度为128的int数组
  */
 public class LC_409_最长回文串 {
     public int longestPalindrome(String s) {
         // 找出可以构成最长回文串的长度
-        int[] a  = new int[128];//ASCLL值的范围为[0,128)
+        int[] a  = new int[128];//ASCLL码值的范围为[0,128)，包括了英文字母、数字、标点符号和一些控制字符
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             a[c]++;//字符出现次数加一

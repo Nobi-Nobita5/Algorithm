@@ -44,6 +44,7 @@ package algorithm.LeetCode;
  * 方法一：两个new int[10]数组记录0~9出现次数，方便统计母牛个数
  *
  * 时间复杂度：O（n）
+ * 空间复读：O(1),创建了两个length = 10的数组
  */
 public class LC_299_猜数字游戏 {
     public String getHint(String secret, String guess) {
