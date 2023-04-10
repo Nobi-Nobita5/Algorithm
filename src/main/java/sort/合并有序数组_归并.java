@@ -1,4 +1,4 @@
-package algorithm.MianShi;
+package sort;
 
 import java.util.Arrays;
 

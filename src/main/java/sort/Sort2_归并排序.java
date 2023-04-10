@@ -5,7 +5,7 @@ package sort;
  * @Date: 2022/06/22/14:49
  * @Version: 1.0
  */
-public class merge_sort {
+public class Sort2_归并排序 {
     private static int[] temp;
     public static void sort(int[] a){
         temp = new int[a.length];

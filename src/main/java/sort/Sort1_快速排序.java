@@ -1,8 +1,8 @@
-package algorithm.MianShi;
+package sort;
 
 import static java.util.Arrays.sort;
 
-public class Sort_快速排序 {
+public class Sort1_快速排序 {
     public int[] MySort (int[] arr) {
         // write code here
         int left = 0;
