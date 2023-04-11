@@ -4,6 +4,9 @@ package sort;
  * @Author: Xionghx
  * @Date: 2022/06/22/14:49
  * @Version: 1.0
+ * -------------------------
+ * 时间复杂度：最坏情况下O(nlogn)
+ * 空间复杂度：O(n)
  */
 public class Sort2_归并排序 {
     private static int[] temp;
