@@ -15,7 +15,7 @@ LC_409_最长回文串
 ##### 3. 链表
 
 ~~~
-LC_23_合并K个升序链表，LC_206_reverseList,LC_876_middleNode,LC_21_合并两个有序链表,LC_148_链表排序，LC_160_链表相交起始节点
+LC_23_合并K个升序链表，LC_206_reverseList,LC_876_middleNode,LC_21_合并两个有序链表,LC_148_链表排序，LC_160_链表相交起始节点,LC_141_hasCycle,LC_92_reverseBetween
 ~~~
 
 ##### 4. 哈希表(HashMap)、哈希集合(HashSet)
@@ -71,7 +71,8 @@ LC_767_重构字符串
 
 稳定的算法有冒泡，插入，归并。
 
-LC_148_链表排序，LC_179_largestNumber,LC_75_sortColors
+LC_148_链表排序，LC_179_largestNumber,LC_75_sortColors,LC_215_findKthLargest（Quick Select）,
+LC_4_findMedianSortedArrays
 ~~~
 
 ##### 3. 双指针

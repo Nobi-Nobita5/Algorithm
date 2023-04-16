@@ -4,7 +4,14 @@ package algorithm.LeetCode;
  * @Author: Xionghx
  * @Date: 2022/06/23/16:49
  * @Version: 1.0
- * 思路：指针，合并两个有序数组，再求中位数
+ * 给定两个大小分别为 m 和 n 的正序（从小到大）数组 nums1 和 nums2。请你找出并返回这两个正序数组的 中位数 。
+ *
+ * 算法的时间复杂度应该为 O(log (m+n)) 。
+ * --------------------------------------
+ * 思路一：指针，合并两个有序数组，再求中位数
+ * 时间复杂度：遍历两个数组，O(M+N)
+ * 空间复杂度：结果数组，O(M+N)
+ * -------------------------------
  */
 public class LC_4_findMedianSortedArrays {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
@@ -15,32 +22,20 @@ public class LC_4_findMedianSortedArrays {
         double m = (merge[merge.length/2-1]*1.0+merge[merge.length/2]*1.0)/2,n = merge[merge.length/2];
         return t == 0 ? m:n;
     }
-    public int[] merge(int[] a,int[] b){
-        int i = 0,j = 0,flag = 0;
-        int[] res = new int[a.length+b.length];
-        while (i<a.length && j<b.length) {
-            if (i < a.length && j < b.length && a[i] <= b[j]) {
-                res[flag] = a[i];
-                flag++;
-                i++;
-            }
-            if (j < b.length && i < a.length && a[i] > b[j]) {
-                res[flag] = b[j];
-                flag++;
-                j++;
-            }
+    private int[] merge(int[] nums1, int[] nums2) {
+        int[] res = new int[nums1.length + nums2.length];
+        int i = 0,j = 0;
+        int index = 0;
+        while (i<nums1.length && j < nums2.length){
+            if (nums1[i] <= nums2[j]){
+                res[index++] = nums1[i++];
+            }else res[index++] = nums2[j++];
         }
-        if (i < a.length){
-            for (int k = i; k < a.length; k++) {
-                res[flag] = a[k];
-                flag++;
-            }
+        while (i<nums1.length){
+            res[index++] = nums1[i++];
         }
-        if (j < b.length){
-            for (int k = j; k < b.length; k++) {
-                res[flag] = b[k];
-                flag++;
-            }
+        while (j< nums2.length){
+            res[index++] = nums2[j++];
         }
         return res;
     }
