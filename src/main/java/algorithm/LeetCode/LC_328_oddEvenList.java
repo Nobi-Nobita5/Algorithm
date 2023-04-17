@@ -12,9 +12,10 @@ import algorithm.ListNode;
  * 你必须在 O(1) 的额外空间复杂度和 O(n) 的时间复杂度下解决这个问题。
  * ----------------------------------------------
  * 思路：
- * 1.第一个节点指针指向下下个节点，第二个节点指针指向下下个节点，两个指针向后移动一位，以此类推；
- * 2.断开最后奇偶节点的交界
- * 3.奇数段链接偶数段，奇数段最后节点上的指针，可能是p1(偶数个节点),p2(奇数个节点)。要判断节点个数奇偶性
+ * 1.一个p1指针指向当前节点，一个p2指针指向下一个节点；
+ * 2.p1.next = p2.next,连接间隔节点，两指针后移，循环操作直到链尾；
+ * 3.断开最后奇偶节点的交界，否则会出现环；
+ * 4.奇数段链接偶数段，指向奇数段最后节点的指针：若链表长度为偶数，则是p1。若链表长度为奇数，则是p2。
  *
  * 时间复杂度：O(n) 
  * 空间复杂度：O(1) 
@@ -25,8 +26,8 @@ public class LC_328_oddEvenList {
         if(head == null || head.next == null || head.next.next == null) return head;
         ListNode p1 = head;
         ListNode p2 = head.next;
-        ListNode p3 = head.next;
-        ListNode p4 = head;
+        ListNode p3 = head.next;//指向偶数段链表第一个节点
+        ListNode p4 = head;//用于统计链表长度
         int count = 1;
         while (p4.next != null){
             p4 = p4.next;
@@ -38,7 +39,8 @@ public class LC_328_oddEvenList {
             p2 = p2.next;
         }
         p1.next = null;//断开最后奇偶节点的交界，否则会出现环
-        if (count % 2==0) p1.next = p3;//奇数段链接偶数段
+        //奇数段链接偶数段
+        if (count % 2==0) p1.next = p3;
         else p2.next = p3;
 
         return head;

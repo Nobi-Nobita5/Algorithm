@@ -14,7 +14,7 @@ import static java.util.Arrays.sort;
  * 总的来说，快速排序算法体现了分治思想
  *  ------------------------------------
  * 时间复杂度：平均O(nlogn)
- * 空间复杂度：O(1)
+ * 空间复杂度：O(logn)，因为快排的实现是递归调用的，而且每次函数调用中只使用了常数的空间，因此空间复杂度等于递归深度Θ(logn)。
  * */
 public class Sort1_快速排序 {
     public int[] MySort (int[] arr) {

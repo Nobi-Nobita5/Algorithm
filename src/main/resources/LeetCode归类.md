@@ -15,7 +15,7 @@ LC_409_最长回文串
 ##### 3. 链表
 
 ~~~
-LC_23_合并K个升序链表，LC_206_reverseList,LC_876_middleNode,LC_21_合并两个有序链表,LC_148_链表排序，LC_160_链表相交起始节点,LC_141_hasCycle,LC_92_reverseBetween
+LC_23_合并K个升序链表，LC_206_reverseList,LC_876_middleNode,LC_21_合并两个有序链表,LC_148_链表排序，LC_160_链表相交起始节点,LC_141_hasCycle,LC_92_reverseBetween,LC_328_oddEvenList
 ~~~
 
 ##### 4. 哈希表(HashMap)、哈希集合(HashSet)
@@ -67,7 +67,7 @@ LC_767_重构字符串
 ##### 2. 排序
 
 ~~~
-基础知识：快速排序（Quick Sort）， 归并排序（Merge Sort）的原理与代码实现。需要能讲明白代码中每一行的目的。快速排序时间复杂度平均状态下O（NlogN），空间复杂度O（1），归并排序最坏情况下时间复杂度O（NlogN），空间复杂度O（N）。
+基础知识：快速排序（Quick Sort）， 归并排序（Merge Sort）的原理与代码实现。需要能讲明白代码中每一行的目的。快速排序时间复杂度平均状态下O（NlogN），空间复杂度O（logN），归并排序最坏情况下时间复杂度O（NlogN），空间复杂度O（N）。
 
 稳定的算法有冒泡，插入，归并。
 
