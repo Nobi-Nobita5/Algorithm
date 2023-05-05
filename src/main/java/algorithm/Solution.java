@@ -4,33 +4,25 @@ import java.io.IOException;
 import java.util.*;
 
 public class Solution {
-    public static void main(String[] args) {
-        int[] a = new int[]{2,0,2,1,1,0};
-        sortColors(a);
-    }
-    public static void sortColors(int[] nums) {
-        int p = 0;
-        int p1 = 0;
-        while (p1 < nums.length){
-            if (nums[p1] == 0){
-                int t = nums[p];
-                nums[p] = nums[p1];
-                nums[p1] = t;
-                p++;
-            }
-            p1++;
-        }
+    public static int numDecodings(String s) {
+        if (s.length() == 0 || s.charAt(0) == '0') return 0;
 
-        p1 = p;
+        int[] dp = new int[s.length()];
 
-        while (p1 < nums.length){
-            if (nums[p1] == 1){
-                int t = nums[p];
-                nums[p] = nums[p1];
-                nums[p1] = t;
-                p++;
+        dp[0] = 1;
+
+        for (int i = 0; i < s.length(); i++) {
+            //判断s[i]是否是0，执行动态转换方程
+
+            if (s.charAt(i) != '0') dp[i] = dp[i-1];
+            int num = 10 * (s.charAt(i-1) - '0') + (s.charAt(i) - '0');
+            if (num >= 10 && num <= 26){
+                if (i == 1) dp[i] = dp[i] + 1;
+                else {
+                    dp[i] = dp[i] + dp[i-2];
+                }
             }
-            p1++;
         }
+        return dp[s.length() -1 ];
     }
 }

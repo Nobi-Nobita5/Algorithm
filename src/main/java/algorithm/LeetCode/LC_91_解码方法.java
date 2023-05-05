@@ -53,7 +53,7 @@ package algorithm.LeetCode;
  */
 public class LC_91_解码方法 {
     public static void main(String[] args) {
-        int i = numDecodings("120");
+        int i = numDecodings("10");
         System.out.println(i);
     }
     public static int numDecodings(String s) {
@@ -74,7 +74,7 @@ public class LC_91_解码方法 {
             if(num >= 10 && num <= 26){
                 //可以，且i == 1时，dp[i - 1] + 1
                 if (i == 1){
-                    dp[i] = dp[i - 1] + 1;
+                    dp[i] = dp[i] + 1;//也需要根据s[i]是否为0，确定赋值操作前dp[i]的值。
                 }else {
                     //可以，且i != 1时。
                     //将状态方程dp[i] = dp[i - 1] + dp[i - 2]转换为dp[i] = dp[i] + dp[i - 2]来使用。此处的dp[i]在被该方程赋值之前，有两种情况：
