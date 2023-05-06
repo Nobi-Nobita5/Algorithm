@@ -49,7 +49,7 @@ public class Sort2_归并排序 {
         while (p2<=hi){
             temp[i++] = a[p2++];
         }
-//函数返回void，需要在每次合并时把合并好的对应位置元素替换到数组a中
+//函数返回void，需要在每次合并时把合并好的对应位置元素替换到数组a中,让原数组a不断的变有序
         for (int index=lo;index<=hi;index++){ a[index]=temp[index]; }
     }
 }

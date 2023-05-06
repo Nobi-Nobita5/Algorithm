@@ -35,7 +35,7 @@ public class LC_179_largestNumber {
             public int compare(String x, String y) {
                 String o1 = x + y;
                 String o2 = y + x;
-                return o2.compareTo(o1);//303和330，用字符串相加再比较即可
+                return o2.compareTo(o1);//303和330，用字符串拼接再比较即可
                 //降序
             }
         });

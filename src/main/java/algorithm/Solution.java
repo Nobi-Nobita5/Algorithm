@@ -1,28 +1,35 @@
 package algorithm;
 
-import java.io.IOException;
-import java.util.*;
-
 public class Solution {
-    public static int numDecodings(String s) {
-        if (s.length() == 0 || s.charAt(0) == '0') return 0;
+    public void sortColors(int[] nums) {
+        solve(nums,0,nums.length-1);
+    }
 
-        int[] dp = new int[s.length()];
+    private void solve(int[] nums, int left, int right) {
+        if (left >= right){
+            return;
+        }
+        int i = left;
+        int j = right;
 
-        dp[0] = 1;
-
-        for (int i = 0; i < s.length(); i++) {
-            //判断s[i]是否是0，执行动态转换方程
-
-            if (s.charAt(i) != '0') dp[i] = dp[i-1];
-            int num = 10 * (s.charAt(i-1) - '0') + (s.charAt(i) - '0');
-            if (num >= 10 && num <= 26){
-                if (i == 1) dp[i] = dp[i] + 1;
-                else {
-                    dp[i] = dp[i] + dp[i-2];
-                }
+        while (i < j){
+            while (i < j && nums[j] >= nums[left]){
+                j--;
+            }
+            while (i < j && nums[i] <= nums[left]){
+                i++;
+            }
+            if (i < j){
+                int tmp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = tmp;
             }
         }
-        return dp[s.length() -1 ];
+        int tmp = nums[left];
+        nums[left] = nums[i];
+        nums[i] = tmp;
+
+        solve(nums,left,i-1);
+        solve(nums,i+1,right);
     }
 }

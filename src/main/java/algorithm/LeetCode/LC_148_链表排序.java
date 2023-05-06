@@ -14,8 +14,8 @@ import algorithm.ListNode;
  * 思路：
  * 基于分治算法的归并排序。(最容易想到的实现方式是自顶向下的递归实现)
  *
- * 1.递归方法sortList中定义头尾节点，当两指针相遇时，断开节点，这样可以利用分治断开链表中所有节点。
- * 2.使用mid将当前链表一分为二，再递归调用sortList和merge实现分治后归并。
+ * 1.使用快慢指针，定位到mid将当前链表一分为二，再递归调用sortList和merge实现分治后归并。
+ * 2.定义头尾指针，当两指针相遇时，断开节点，这样可以利用分治断开链表中所有节点。
  * ------------------------------------------
  * 时间复杂度：归并排序，O(NlogN),N是链表长度。
  * 空间复杂度：考虑到递归调用的栈空间，自顶向下归并排序的空间复杂度是 O(logN)
@@ -49,7 +49,7 @@ public class LC_148_链表排序 {
     //合并两个有序链表
     public ListNode merge(ListNode head1, ListNode head2) {
         ListNode dummyHead = new ListNode(0);//new一个节点，作为结果链表头节点的前置节点
-        ListNode temp = dummyHead;//作为结果链表的尾节点
+        ListNode temp = dummyHead;//temp指针指向结果链表的尾节点
         while (head1 != null && head2 != null) {
             if (head1.val <= head2.val) {
                 temp.next = head1;
