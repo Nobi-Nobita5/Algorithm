@@ -71,11 +71,12 @@ public class LC_1438_绝对差不超过限制的最长连续子数组 {
         int res = 0;//right - left + 1为返回值
         while (right < n){
             map.put(nums[right],map.getOrDefault(nums[right],0) + 1);
-            //内层while：每一次右窗口右移put元素之后，都需要循环找出满足限制限制的子数组
+            //内层while：每一次右窗口右移put元素之后，都需要循环找出满足限制的子数组
             while (map.lastKey() - map.firstKey() > limit){//当前子数组不满足限制
                 map.put(nums[left],map.get(nums[left]) - 1);//则子数组第一个元素，其对应TreeMap的value(次数)减一
                 if (map.get(nums[left]) == 0){
                     //若减一后，次数为0，则在map中删除该元素，避免后续再被使用；
+                    //之所以要维护TreeMap，就是为了在能够随时求得窗口最大差值的同时，也要能够删除不存在于窗口中的元素，避免后续再被使用。
                     map.remove(nums[left]);
                 }
                 left++;//左窗口右移

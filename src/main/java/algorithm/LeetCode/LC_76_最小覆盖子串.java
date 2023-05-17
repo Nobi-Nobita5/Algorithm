@@ -78,7 +78,7 @@ public class LC_76_最小覆盖子串 {
                     ansL = l;
                     ansR = l + len;//substring左闭右开，所以l+len
                 }
-                if (ori.containsKey(s.charAt(l))) {//左指针要右移，则动态哈希表中次数减一
+                if (ori.containsKey(s.charAt(l))) {//左指针要右移，则滑动窗口哈希表中对应字符的次数减一
                     cnt.put(s.charAt(l), cnt.getOrDefault(s.charAt(l), 0) - 1);
                 }
                 ++l;

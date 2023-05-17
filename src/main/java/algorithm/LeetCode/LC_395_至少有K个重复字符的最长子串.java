@@ -78,9 +78,14 @@ public class LC_395_至少有K个重复字符的最长子串 {
 
         return max;
     }
-
-
-    /**
-     * 方法二：滑动窗口
-     */
 }
+
+/**
+ * 方法二：滑动窗口
+ */
+class LC_395_至少有K个重复字符的最长子串_方法二 {
+    public int longestSubstring(String s, int k) {
+        return 0;
+    }
+}
+

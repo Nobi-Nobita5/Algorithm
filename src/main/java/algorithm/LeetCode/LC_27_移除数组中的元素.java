@@ -20,6 +20,9 @@ package algorithm.LeetCode;
  * TODO 把不等于val的元素从左到右依次放在数组里
  * right:判断该指针指向元素是否等于val
  * left:把不等于val的元素从左到右依次放在该指针位置
+ *
+ * 时间复杂度：O(n)
+ * 空间复杂度：O(1)
  */
 class LC_27_移除数组中的元素 {
     public int removeElement(int[] nums, int val) {

@@ -61,14 +61,14 @@ package algorithm.LeetCode;
  */
 public class LC_424_替换后的最长重复字符 {
     public int characterReplacement(String s, int k) {
-        int[] num = new int[26];
+        int[] num = new int[26];//记录窗口中每个字符的出现次数
         int n = s.length();
         //当前子串中字符出现次数最大值
         int maxn = 0;
         int left = 0, right = 0;
         while (right < n) {
             num[s.charAt(right) - 'A']++;
-            //更新当前子串中字符出现次数的最大值。
+            //更新当前子串中字符出现次数的最大值。AAABBB
             maxn = Math.max(maxn, num[s.charAt(right) - 'A']);
             if (right - left + 1 - maxn > k) {
                 //不满足限制大于k，则左指针右移，滑动到以下一个左指针位置为左边界的窗口。

@@ -29,6 +29,8 @@ import java.util.Arrays;
  * -104 <= target <= 104
  * -------------------------------------------------
  * 思路：同 LC_15_三数之和
+ * 时间复杂度：O(n^2)
+ * 空间复杂度：O(1)
  */
 public class LC_16_最接近的三数之和 {
     public int threeSumClosest(int[] nums, int target) {
