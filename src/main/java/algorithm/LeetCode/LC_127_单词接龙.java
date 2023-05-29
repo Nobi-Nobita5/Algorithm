@@ -50,8 +50,6 @@ public class LC_127_单词接龙 {
         // 第 1 步：先将 wordList 放到哈希表里，便于判断某个单词是否在 wordList 里
         HashSet<String> wordSet = new HashSet<>(wordList);
         if (wordSet.size()==0 || !wordSet.contains(endWord)) return 0;
-        //删除beginWord，方便第一次beginWord与wordSet元素的比较，不删会出问题
-        wordSet.remove(beginWord);
 
         // 第 2 步：图的广度优先遍历，必须使用队列和表示是否访问过的 visited 哈希表
         Queue<String> queue = new LinkedList<>();
@@ -67,6 +65,7 @@ public class LC_127_单词接龙 {
                 // 依次遍历当前队列中的单词
                 String currentWord = queue.poll();
                 // 如果 currentWord 能够修改 1 个字符与 endWord 相同，则直接返回 step + 1
+                // changeWordEveryOneLetter方法传递的是queue等对象引用的副本。
                 if (changeWordEveryOneLetter(currentWord,endWord,queue,visited,wordSet)){
                     return step+1;
                 }

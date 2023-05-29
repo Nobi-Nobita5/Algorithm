@@ -43,7 +43,7 @@ import java.util.*;
  * 4.若最后结果集res中节点数等于图中元素个数，则返回res。不等于则证明存在环，无解。
  *
  * 注：
- * 有向无环图使用ArrayList<List<Integer>>()作为辅助数据结构，没有用HashMap+List，因为ArrayList的下标就可以标识课程（0 到 numCourses - 1）。
+ * 有向无环图使用ArrayList<List<Integer>>()作为辅助数据结构，因为ArrayList的下标就可以标识课程（0 到 numCourses - 1），简单方便。用HashMap<Integer,List<Integer>>也是可以的。
  *
  * -------------------------------------------------------
  * 时间复杂度：O(m+n)，m是课程数，n为先修课程的要求数。
@@ -87,7 +87,7 @@ public class LC_210_课程表II {
             //放入答案中
             res[index++] = poll;
             //Bfs搜索该节点的邻居(后继)节点,其实就是遍历List<Integer> list = dag.get(poll)这个集合。
-            //搜索邻居(后继)节点的顺序任意，所以可以使用foreach
+            //搜索邻居(后继)节点的顺序任意（后继节点的顺序存储在入度数组indeg中）。所以可以使用foreach
             for (int v:dag.get(poll)) {
                 //邻居节点（课程v）入度减一
                 indeg[v]--;

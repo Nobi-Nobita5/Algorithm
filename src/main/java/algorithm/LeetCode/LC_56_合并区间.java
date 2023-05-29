@@ -44,7 +44,8 @@ class LC_56_合并区间 {
             int rightBound = intervals[right][1];//合并后区间右边界
 
             //合并区间
-            while (right<intervals.length && intervals[right][0]<=rightBound){//right不越界、且right指向的后面区间的左边界<=当前区间右边界
+            //注意，最好不要再while循环的判断条件里面做right++操作
+            while (right<intervals.length && rightBound>=intervals[right][0]){//right不越界、且right指向的后面区间的左边界<=当前区间右边界
                 //合并后区间的右边界 = max{[下一个数组元素区间的右边界]，[当前区间右边界]}
                 rightBound = Math.max(intervals[right][1],rightBound);
                 right++;//right指向temp集合中的下一个数组元素
