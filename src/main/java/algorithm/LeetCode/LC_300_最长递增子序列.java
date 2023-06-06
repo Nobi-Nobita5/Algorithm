@@ -2,8 +2,6 @@ package algorithm.LeetCode;
 
 import java.util.Arrays;
 
-import static java.lang.Math.max;
-
 /**
  * 给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。
  *
@@ -33,8 +31,8 @@ import static java.lang.Math.max;
  * 状态：dp[i]的值代表nums以nums[i]结尾的最长子序列长度
  * 状态转移方程：
  *      当nums[i] > nums[j]时，尝试使用方程dp[i] = max(dp[i],dp[j] + 1)更新dp[i]。
- *      其中 j 属于 [0,i),考虑每轮计算新dp[i]时，遍历[0,i)区间。
- * 初始状态：dp[i]所有元素置为1，含义是每个元素都至少可以单独成为子序列，此时长度都为1。
+ *      其中 j 属于 [0,i)，通过将dp数组在[0,i)区间的每个值 + 1 与 dp[i] 作比较，去尝试更新dp[i]。
+ * 初始状态：dp[i]所有元素置为1，含义是每个元素都至单独成为子序列，此时长度都为1。
  * 返回值：返回dp列表最大值
  *
  * 时间复杂度：O(N^2),N为数组长度
