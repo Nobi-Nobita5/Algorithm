@@ -21,7 +21,10 @@ import java.util.LinkedList;
  * 方法一：动态规划
  * leftMax[i]代表下标i及其左边的位置中，height的最大高度；
  * right[i]代表下标i及其右边的位置中，height的最大高度；
- * 那我们正向遍历数组得到leftMax的每个元素值，反向遍历数组得到 rightMax 的每个元素值
+ * 【leftMax[i]和right[i]的求值过程就是动态规划过程】
+ *
+ * 解法：
+ * 我们正向遍历数组得到leftMax的每个元素值，反向遍历数组得到 rightMax 的每个元素值
  * 最后，选择每个位置上两个高度的最小值，再把所有位置上该值相加就代表能接的雨水量
  *
  * 时间复杂度：O(N)
@@ -35,20 +38,20 @@ public class LC_42_接雨水 {
         }
 
         int[] leftMax = new int[n];
-        leftMax[0] = height[0];
+        leftMax[0] = height[0];//初始值
         for (int i = 1; i < n; ++i) {
             leftMax[i] = Math.max(leftMax[i - 1], height[i]);
         }
 
         int[] rightMax = new int[n];
-        rightMax[n - 1] = height[n - 1];
+        rightMax[n - 1] = height[n - 1];//初始值
         for (int i = n - 2; i >= 0; --i) {
             rightMax[i] = Math.max(rightMax[i + 1], height[i]);
         }
 
         int ans = 0;
         for (int i = 0; i < n; ++i) {
-            ans += Math.min(leftMax[i], rightMax[i]) - height[i];
+            ans += Math.min(leftMax[i], rightMax[i]) - height[i];//每次叠加记得减去本身柱子的高度
         }
         return ans;
     }
@@ -74,6 +77,29 @@ class LC_42_接雨水_方法二_单调栈 {
                 ans += currWidth * currHeight;
             }
             stack.push(i);
+        }
+        return ans;
+    }
+}
+
+/**
+ *
+ */
+class LC_42_接雨水_方法三_双指针 {
+    public int trap(int[] height) {
+        int ans = 0;
+        int left = 0, right = height.length - 1;
+        int leftMax = 0, rightMax = 0;
+        while (left < right) {
+            leftMax = Math.max(leftMax, height[left]);
+            rightMax = Math.max(rightMax, height[right]);
+            if (height[left] < height[right]) {
+                ans += leftMax - height[left];
+                ++left;
+            } else {
+                ans += rightMax - height[right];
+                --right;
+            }
         }
         return ans;
     }
