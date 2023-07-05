@@ -1,4 +1,4 @@
-package algorithm.MianShi;
+package MianShi;
 /*
 进行length/2次比较就完事了
  */

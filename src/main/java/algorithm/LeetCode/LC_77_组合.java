@@ -31,6 +31,9 @@ public class LC_77_组合 {
         for(int i = start;i <= n;i++){
             curr.add(i);
             dfs(n,k,i+1,curr,res);
+            //因为每次递归调用参数是i+1，每次递归不会从头开始遍历
+            //如当最外层循环i==1执行完，开始i==2的循环，内层的递归函数再也不会遍历到i==1的元素
+            //故此做法只能得到元素的组合，不能获得元素的排列
             curr.remove(curr.size() - 1);
         }
     }

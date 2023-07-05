@@ -1,4 +1,4 @@
-package algorithm.MianShi;
+package MianShi;
 
 import java.util.LinkedList;
 import java.util.Queue;
