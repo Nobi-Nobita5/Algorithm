@@ -1,7 +1,7 @@
-package algorithm;
+package MianShi;
 
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 给一个长度为n的数组，数组中的数字不重复，实现一个函数，打印从数组的n个数中选取m个数的所有组合情况。
@@ -18,9 +18,7 @@ import java.util.*;
  * 1 3 8
  * 1 3 5
  */
-import java.util.*;
-import java.util.regex.*;
-public class Solution{
+public class 网易三面面试题 {
     public static void main(String[] args) {
         int[] a = new int[]{1,3,5,8,9};
 
@@ -29,7 +27,7 @@ public class Solution{
         backtrack(a,0,new ArrayList<Integer>(),res,3);
 
         for (List<Integer> curr:
-                res) {
+             res) {
             System.out.println(curr + " ");
         }
     }
@@ -47,3 +45,4 @@ public class Solution{
         }
     }
 }
+
