@@ -35,7 +35,7 @@ SQL部分包含了多个层次的 SQL 题目，从入门到高级，涉及了多
 
 `main` 目录包含了 Java 编程语言的算法题和面试题，详细的解题思路与代码实现涵盖了广泛的编程问题。
 
-[leetcode题目分类](./main/resources/LeetCode归类.md)
+- **分类详见**：[leetcode题目分类](./src/main/resources/LeetCode归类.md)
 
 ```
 └── main
